@@ -28,6 +28,8 @@ jobs:
       with:
         versionFormat: detect
       env:
+        snowUsername: ${{ secrets.snowUsername }}
+        snowPassword: ${{ secrets.snowPassword }}
         snowSSHPrivateKey: ${{ secrets.SSH_PRIVATE_KEY }}
         snowSSHPublicKey: ${{ secrets.SSH_PUBLIC_KEY }}
         snowSSHHost: ${{ secrets.SSH_HOST }}
