@@ -27,7 +27,6 @@ jobs:
           echo "Creating empty known_hosts as fallback"
           touch ~/.ssh/known_hosts
 
-
       - name: ServiceNow CI/CD Apply Changes
         uses: ServiceNow/sncicd-apply-changes@1.2.1
         env:
