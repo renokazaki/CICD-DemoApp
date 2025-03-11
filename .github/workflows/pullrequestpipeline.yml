@@ -20,7 +20,9 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -t rsa ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          echo "Attempting to connect to ${{ secrets.SSH_HOST }}"
+          ssh-keyscan -v -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts || echo "SSH keyscan failed but continuing"
+          cat ~/.ssh/known_hosts
 
       - name: ServiceNow CI/CD Apply Changes
         uses: ServiceNow/sncicd-apply-changes@1.2.1
