@@ -20,12 +20,8 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          echo "Checking if host is reachable"
-          ping -c 4 ${{ secrets.SSH_HOST }} || echo "Ping failed"
-          echo "Attempting verbose ssh-keyscan"
-          ssh-keyscan -v -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts || echo "SSH keyscan failed"
-          echo "Creating empty known_hosts as fallback"
           touch ~/.ssh/known_hosts
+          ssh-keyscan -t rsa ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts || true
 
       - name: ServiceNow CI/CD Apply Changes
         uses: ServiceNow/sncicd-apply-changes@1.2.1
